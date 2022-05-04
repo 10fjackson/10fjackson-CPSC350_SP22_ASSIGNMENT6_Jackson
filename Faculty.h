@@ -5,25 +5,25 @@ class Faculty : public Person
     public:
 	    Faculty();
         ~Faculty();
-        Faculty(int id, string name, string level, string major, double gpa, int advisorID);
+        Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *studentIDList);
     private:
         string m_department;
-        DoublyLinkedList<int> *studentIDList
+        DoublyLinkedList<int> *m_studentIDList;
 };
 Faculty::Faculty(){
     m_id = 0;
     m_name = "";
     m_level = "";
     m_department = "";
-    studentIDList = new DoublyLinkedList<int>();
+    m_studentIDList = new DoublyLinkedList<int>();
 }
 
 Faculty::~Faculty(){}
 
-Faculty::Faculty(int id, string name, string level, string department, /*list of student ID nums*/){
+Faculty::Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *studentIDList){
     m_id = id;
     m_name = name;
     m_level = level;
     m_department = "";
-    DoublyLinkedList<int> *studentIDList = new DoublyLinkedList<int>();
+    m_studentIDList = studentIDList;
 }

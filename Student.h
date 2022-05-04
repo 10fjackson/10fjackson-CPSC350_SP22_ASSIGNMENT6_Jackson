@@ -19,7 +19,9 @@ Student::Student(){
     m_gpa = 0.0;
     m_advisorID = 0;
 }
+
 Student::~Student(){}
+
 Student::Student(int id, string name, string level, string major, double gpa, int advisorID){
     m_id = id;
     m_name = name;
