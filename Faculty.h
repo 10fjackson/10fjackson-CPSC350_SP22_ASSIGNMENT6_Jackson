@@ -8,14 +8,14 @@ class Faculty : public Person
         Faculty(int id, string name, string level, string major, double gpa, int advisorID);
     private:
         string m_department;
-        //list of student ID nums
+        DoublyLinkedList<int> *studentIDList
 };
 Faculty::Faculty(){
     m_id = 0;
     m_name = "";
     m_level = "";
     m_department = "";
-    //list of student ID nums
+    studentIDList = new DoublyLinkedList<int>();
 }
 
 Faculty::~Faculty(){}
@@ -25,5 +25,5 @@ Faculty::Faculty(int id, string name, string level, string department, /*list of
     m_name = name;
     m_level = level;
     m_department = "";
-    //list of student ID nums
+    DoublyLinkedList<int> *studentIDList = new DoublyLinkedList<int>();
 }

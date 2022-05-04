@@ -2,6 +2,7 @@
 #include<string>
 #include "BST.h"
 #include "GenStack.h"
+#include "DoublyLinkedList.h"
 using namespace std;
 class Person
 {
