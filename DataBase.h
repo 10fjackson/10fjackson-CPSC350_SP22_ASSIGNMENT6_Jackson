@@ -80,7 +80,15 @@ DataBase::runProgram(){
 
         //Given a faculty id, print ALL the names and info of his/her advisees
         if(num == 6){
-            
+            string facID;
+            cout<<"Enter the Students ID number"<<endl;
+            cin>>facID;
+            int id = stoi(facID);
+            for(int i = 0; i < Faculty->getListSize(); ++i){
+                int temp = Faculty->getList()->removeFront();
+                Student->printPerson(temp);
+                Faculty->getList()->insertBack(temp);
+            }
         }
 
         //Add a new student

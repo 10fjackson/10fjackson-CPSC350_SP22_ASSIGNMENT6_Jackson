@@ -27,3 +27,11 @@ Faculty::Faculty(int id, string name, string level, string department, DoublyLin
     m_department = "";
     m_studentIDList = studentIDList;
 }
+
+int Faculty::getListSize(){
+    return m_studentIDList->getSize();
+}
+
+DoublyLinkedList<int> Faculty::getList(){
+    return m_studentIDList;
+}
