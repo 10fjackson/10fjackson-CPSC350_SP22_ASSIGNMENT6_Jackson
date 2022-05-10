@@ -6,6 +6,7 @@ class Student : public Person
 	    Student();
         ~Student();
         Student(int id, string name, string level, string major, double gpa, int advisorID);
+        getAdvisor();
     private:
         string m_major;
         double m_gpa;
@@ -29,4 +30,8 @@ Student::Student(int id, string name, string level, string major, double gpa, in
     m_major = major;
     m_gpa = gpa;
     m_advisorID = advisorID;
+}
+
+int Student::getAdvisorID(){
+    return m_advisorID;
 }

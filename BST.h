@@ -41,7 +41,10 @@ class BST{
         T* getMin();
         T* getMax();
         TreeNode<T> *getSuccessor(TreeNode<T> *d); //d represents the node we are going to delete
+        TreeNode<T> *getPerson(int id);
         void printNodes();
+        void printInfo();
+        void printPerson(int id);
         void recPrint(TreeNode<T> *node);
         T calcSum(TreeNode<T> *node);
         TreeNode<T>* getRoot();
@@ -251,6 +254,54 @@ bool BST<T>::deleteNode(T k){
     delete current;
     return true;
 }
+template<class T>
+TreeNode<T>* BST<T>::getPerson(int id){
+  bool isTrue = false;
+  if(isEmpty()){
+    return NULL;
+  }
+  TreeNode<T> *current = root;
+  while(isTrue == false){
+    if(current->key.getId() == id){
+      isTrue = true;
+      return current;
+    }
+    else{
+      current = getSuccessor(current);
+    }
+  }
+}
+
+template<class T>
+void BST<T>::printInfo(){
+  if(isEmpty()){
+    return;
+  }
+  TreeNode<T> *current = root;
+  for (int i = 0; i<getSize();++i){
+    cout<<current->key.toString()<<endl;
+    current = getSuccessor(current);
+  }
+}
+
+template<class T>
+void BST<T>::printPerson(int id){
+  bool isTrue = false;
+  if(isEmpty()){
+    return;
+  }
+  TreeNode<T> *current = root;
+  while(isTrue == false){
+    if(current->key.getId() == id){
+      cout<<current->key.toString()<<endl;
+      isTrue = true;
+    }
+    else{
+      current = getSuccessor(current);
+    }
+  }
+}
+
 template <class T>
 /* d represents the node to be delete */
 TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){
