@@ -12,6 +12,7 @@ class GenStack{
     //core functions
     void push(T data);
     T pop();
+    T removeBack();
     T peek(); //aka top()
 
     //aux functions
@@ -56,6 +57,11 @@ T GenStack<T>::pop(){
   myArray->removeFront();
   top = myArray->getFront();
   return pastFront;
+}
+
+template <typename T>
+void GenStack<T>::removeBack(){
+    myArray->removeBack();
 }
 
 template <typename T>

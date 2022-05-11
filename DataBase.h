@@ -17,11 +17,14 @@ class DataBase
         void addFaculty(Faculty *f);
         void removeStudent(Student *s);
         void removeFaculty(Faculty *f);
+        void rollback();
+        int prompt();
     private:
         BST<Student> *masterStudent;
         BST<Faculty> *masterFaculty;
         GenStack<Student> *studentRollback;
         GenStack<Faculty> *facultyRollback;
+        GenStack<int> *rollback;
 };
 
 DataBase::DataBase(){
@@ -29,6 +32,7 @@ DataBase::DataBase(){
     masterFaculty = new BST<Faculty>();
     studentRollback = new GenStack<Student>();
     facultyRollback = new GenStack<Faculty>();
+    rollback = new GenStack<int>();
 }
 DataBase::~DataBase(){}
 
@@ -39,7 +43,7 @@ DataBase::runProgram(){
     bool exit = false;
     while(exit == false){
         int num = prompt();
-        
+
         //Print all students and their information (sorted by ascending id #)
         if(num == 1){
             Student->printInfo();
@@ -80,42 +84,67 @@ DataBase::runProgram(){
 
         //Given a faculty id, print ALL the names and info of his/her advisees
         if(num == 6){
-            
+
         }
 
         //Add a new student
         if(num == 7){
-            
+            string stuID;
+            string name;
+            string major;
+            string stuGpa;
+            string advID;
+            cout<<"Enter the Student's ID number."<<endl;
+            cin>>stuID;
+            int id = stoi(studID);
+            cout<<"Enter the Student's name."<<endl;
+            cin>>name;
+            cout<<"Enter the Student's major."<<endl;
+            cin>>major;
+            cout<<"Enter the Student's GPA."<<endl;
+            cin>>stuGpa;
+            double gpa = stof(stuGpa);
+            cout<<"Enter the Student's advisor's ID."<<endl;
+            cin>>advID;
+            int advisorID = stoi(advID);
+            Student *s = new Student(id, name, major, gpa, advisorID);
+            addStudent(s);
+            studentRollback->push(s);
+            rollback->push(num);
         }
 
         //Delete a student given the id
         if(num == 8){
-            
+
         }
 
         //Add a new faculty member
         if(num == 9){
-            
+
         }
 
         //Delete a faculty member given the id
         if(num == 10){
-            
+
         }
 
         //Change a student's advisor given the student id and the new faculty id
         if(num == 11){
-            
+
         }
 
         //Remove an advisee from a faculty member given the ids
         if(num == 12){
-            
+
         }
 
         //Rollback
         if(num == 13){
-            
+            if(rollback->pop() == 7){
+
+            } else if(rollback->pop() == 8){
+
+            }
         }
 
         //Exit
@@ -123,7 +152,7 @@ DataBase::runProgram(){
             exit = true;
         }
 
-        
+
 
     }
 
@@ -150,11 +179,21 @@ void DataBase::removeFaculty(Faculty *f){
     facultyRollback->push(f);
 }
 
-DataBase::rollback(){
-    
+void DataBase::rollback(){
+
 }
 
-int prompt(){
+void DataBase::serialize(){
+
+}
+
+void DataBase::deserialize(){
+
+}
+
+
+
+int DataBase::prompt(){
     cout<<"Enter the number of the item you wish to execute"<<endl;
     cout<<"1. Print all students and their information (sorted by ascending id #)"<<endl;
     cout<<"2. Print all faculty and their information (sorted by ascending id #)"<<endl:
