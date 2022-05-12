@@ -25,6 +25,14 @@ class DataBase
         GenStack<Student> *studentRollback;
         GenStack<Faculty> *facultyRollback;
         GenStack<int> *rollbackStack;
+        string stuID;
+        string name;
+        string major;
+        string stuGpa;
+        string advID;
+        string facID;
+        string level;
+        string department;
 };
 
 DataBase::DataBase(){
@@ -56,7 +64,6 @@ DataBase::runProgram(){
 
         //Find and display student information given the students id
         if(num == 3){
-            string stuID;
             cout<<"Enter the Student's ID number."<<endl;
             cin>>stuID;
             int id = stoi(stuID);
@@ -65,7 +72,6 @@ DataBase::runProgram(){
 
         //Find and display faculty information given the faculty id
         if(num == 4){
-            string facID;
             cout<<"Enter the Faculty's ID number."<<endl;
             cin>>facID;
             int id = stoi(facID);
@@ -74,7 +80,6 @@ DataBase::runProgram(){
 
         //Given a student's id, print the name and info of their faculty advisor
         if(num == 5){
-            string stuID;
             cout<<"Enter the Student's ID number."<<endl;
             cin>>stuID;
             int id = stoi(stuID);
@@ -84,7 +89,6 @@ DataBase::runProgram(){
 
         //Given a faculty id, print ALL the names and info of his/her advisees
         if(num == 6){
-            string facID;
             cout<<"Enter the Students ID number"<<endl;
             cin>>facID;
             int id = stoi(facID);
@@ -97,14 +101,9 @@ DataBase::runProgram(){
 
         //Add a new student
         if(num == 7){
-            string stuID;
-            string name;
-            string major;
-            string stuGpa;
-            string advID;
             cout<<"Enter the Student's ID number."<<endl;
             cin>>stuID;
-            int id = stoi(studID);
+            int id = stoi(stuID);
             cout<<"Enter the Student's name."<<endl;
             cin>>name;
             cout<<"Enter the Student's major."<<endl;
@@ -123,17 +122,16 @@ DataBase::runProgram(){
 
         //Delete a student given the id
         if(num == 8){
-            string stuID;
             cout<<"Enter the Student's ID number."<<endl;
             cin>>stuID;
-            int id = stoi(studID);
+            int id = stoi(stuID);
 
 
         }
 
         //Add a new faculty member
         if(num == 9){
-            
+
         }
 
         //Delete a faculty member given the id
@@ -143,6 +141,17 @@ DataBase::runProgram(){
 
         //Change a student's advisor given the student id and the new faculty id
         if(num == 11){
+            cout<<"Enter the Students ID you wish to edit"<<endl;
+            cin>>stuID;
+            cout<<"Enter the new Faculty ID"<<endl;
+            cin>>facID;
+            //remove student from facultys advisee list
+            int oldID = Student->getPerson(stuID)->getAdvisorID();
+            Faculty->getPerson(oldID)->removeStudent(stuID);
+            //change students advisor
+            Student->getPerson(stuID)->setAdvisorID(facID);
+            //add student to new advisor list
+            Faculty->getPerson(facID)->addStudent(stuID);
 
         }
 

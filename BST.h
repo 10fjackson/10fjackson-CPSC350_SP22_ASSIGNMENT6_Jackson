@@ -262,7 +262,7 @@ TreeNode<T>* BST<T>::getPerson(int id){
   }
   TreeNode<T> *current = root;
   while(isTrue == false){
-    if(current->key.getId() == id){
+    if(current->key == id){
       isTrue = true;
       return current;
     }
@@ -292,7 +292,7 @@ void BST<T>::printPerson(int id){
   }
   TreeNode<T> *current = root;
   while(isTrue == false){
-    if(current->key.getId() == id){
+    if(current->key == id){
       cout<<current->key.toString()<<endl;
       isTrue = true;
     }

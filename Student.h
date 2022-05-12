@@ -35,3 +35,11 @@ Student::Student(int id, string name, string level, string major, double gpa, in
 int Student::getAdvisorID(){
     return m_advisorID;
 }
+
+void Student::setAdvisorID(int a){
+    m_advisorID = a;
+}
+
+int Student::getID(){
+    return m_id;
+}
