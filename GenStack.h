@@ -12,7 +12,7 @@ class GenStack{
     //core functions
     void push(T data);
     T pop();
-    T removeBack();
+    void removeBack();
     T peek(); //aka top()
 
     //aux functions
