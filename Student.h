@@ -6,7 +6,7 @@ class Student : public Person
 	    Student();
         ~Student();
         Student(int id, string name, string level, string major, double gpa, int advisorID);
-        getAdvisor();
+        int getAdvisor();
     private:
         string m_major;
         double m_gpa;
