@@ -54,12 +54,12 @@ void DataBase::runProgram(){
 
         //Print all students and their information (sorted by ascending id #)
         if(num == 1){
-            Student->printInfo();
+            masterStudent->printInfo();
         }
 
         //Print all faculty and their information (sorted by ascending id #)
         if(num == 2){
-            Faculty->printInfo();
+            masterFaculty->printInfo();
         }
 
         //Find and display student information given the students id
@@ -67,7 +67,7 @@ void DataBase::runProgram(){
             cout<<"Enter the Student's ID number."<<endl;
             cin>>stuID;
             int id = stoi(stuID);
-            Student->printItem(id);
+            masterStudent->printPerson(id);
         }
 
         //Find and display faculty information given the faculty id
@@ -75,7 +75,7 @@ void DataBase::runProgram(){
             cout<<"Enter the Faculty's ID number."<<endl;
             cin>>facID;
             int id = stoi(facID);
-            Student->printItem(id);
+            masterStudent->printPerson(id);
         }
 
         //Given a student's id, print the name and info of their faculty advisor
@@ -83,8 +83,8 @@ void DataBase::runProgram(){
             cout<<"Enter the Student's ID number."<<endl;
             cin>>stuID;
             int id = stoi(stuID);
-            int advisorID = Student->getPerson(id)->getAdvisorID();
-            Faculty->printPerson(advisorID);
+            int advisorID = masterStudent->getPerson(id)->getAdvisorID();
+            masterFaculty->printPerson(advisorID);
         }
 
         //Given a faculty id, print ALL the names and info of his/her advisees
@@ -92,10 +92,10 @@ void DataBase::runProgram(){
             cout<<"Enter the Students ID number"<<endl;
             cin>>facID;
             int id = stoi(facID);
-            for(int i = 0; i < Faculty->getListSize(); ++i){
-                int temp = Faculty->getList()->removeFront();
-                Student->printPerson(temp);
-                Faculty->getList()->insertBack(temp);
+            for(int i = 0; i < masterFaculty->getListSize(); ++i){
+                int temp = masterFaculty->getList()->removeFront();
+                masterStudent->printPerson(temp);
+                masterFaculty->getList()->insertBack(temp);
             }
         }
 
@@ -148,9 +148,9 @@ void DataBase::runProgram(){
             double gpa = stof(stuGpa);
 
             //go through tree of students to find matching advisor ID
-            studentIDList.insertBack(masterStudent->getPerson(facID));
+            studentIDList->insertBack(masterStudent->getPerson(facID));
 
-            Faculty *f = new Student(id, name, level, department, studentIDList);
+            Faculty *f = new Faculty(id, name, level, department, studentIDList);
             masterFaculty->addFaculty(f);
             facultyRollback->push(f);
             rollbackStack->push(num);
@@ -168,18 +168,28 @@ void DataBase::runProgram(){
             cout<<"Enter the new Faculty ID"<<endl;
             cin>>facID;
             //remove student from facultys advisee list
-            int oldID = Student->getPerson(stuID)->getAdvisorID();
-            Faculty->getPerson(oldID)->removeStudent(stuID);
+            int oldID = masterStudent->getPerson(stuID)->getAdvisorID();
+            masterFaculty->getPerson(oldID)->removeStudent(stuID);
             //change students advisor
-            Student->getPerson(stuID)->setAdvisorID(facID);
+            masterStudent->getPerson(stuID)->setAdvisorID(facID);
             //add student to new advisor list
-            Faculty->getPerson(facID)->addStudent(stuID);
+            masterFaculty->getPerson(facID)->addStudent(stuID);
 
         }
 
-        //Remove an advisee from a faculty member given the ids
+        //Remove an advisee from a faculty member given the id
         if(num == 12){
-
+            //get faculty member id
+            //get student id they wish to remove
+            cout<<"Enter the new Faculty ID"<<endl;
+            cin>>facID;
+            cout<<"Enter the Students ID you wish to remove"<<endl;
+            cin>>stuID;
+            //remove student from list
+            masterFaculty->getPerson(facID)->removeStudent(stuID);
+            //set students adviser to null
+            int rootID = masterFaculty->getRoot()->key;
+            masterStudent->getPerson(stuID)->setAdvisorID(rootID);
         }
 
         //Rollback
@@ -261,7 +271,7 @@ int DataBase::prompt(){
     cout<<"9. Add a new faculty member"<<endl;
     cout<<"10. Delete a faculty member given the id."<<endl;
     cout<<"11. Change a student's advisor given the student id and the new faculty id."<<endl;
-    cout<<"12. Remove an advisee from a faculty member given the ids"<<endl;
+    cout<<"12. Remove an advisee from a faculty member given the id"<<endl;
     cout<<"13. Rollback"<<endl;
     cout<<"14. Exit"<<endl;
 

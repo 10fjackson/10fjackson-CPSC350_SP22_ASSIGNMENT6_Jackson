@@ -1,3 +1,5 @@
+#ifndef Person_H
+#define Person_H
 #include<iostream>
 #include<string>
 #include "BST.h"
@@ -10,11 +12,12 @@ class Person
         Person();
         ~Person();
         Person(int id, string name, string level);
-    private:
+    protected:
         int m_id;
         string m_name;
         string m_level;
 };
+
 Person::Person(){
     m_id = 0;
     m_name = "";
@@ -28,3 +31,5 @@ Person::Person(int id, string name, string level){
     m_name = name;
     m_level = level;
 }
+
+#endif

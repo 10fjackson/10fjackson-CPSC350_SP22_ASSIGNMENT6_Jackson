@@ -1,3 +1,5 @@
+#ifndef Faculty_H
+#define Faculty_H
 #include "Person.h"
 using namespace std;
 class Faculty : public Person
@@ -7,7 +9,7 @@ class Faculty : public Person
         ~Faculty();
         Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *studentIDList);
         void removeStudent(int id);
-        DoublyLinkedList<int> getList();
+        DoublyLinkedList<int>* getList();
         int getListSize();
         void addStudent(int id);
 
@@ -37,14 +39,14 @@ int Faculty::getListSize(){
     return m_studentIDList->getSize();
 }
 
-DoublyLinkedList<int> Faculty::getList(){
+DoublyLinkedList<int>* Faculty::getList(){
     return m_studentIDList;
 }
 
 void Faculty::removeStudent(int id){
     for(int i = 0; i < m_studentIDList->getSize(); ++i){
-        Student *s = m_studentIDList->removeFront();
-        if(s->key->getID() == id){
+        int s = m_studentIDList->removeFront();
+        if(s == id){
             break;
         }
         m_studentIDList->insertBack(s);
@@ -54,3 +56,5 @@ void Faculty::removeStudent(int id){
 void Faculty::addStudent(int id){
     m_studentIDList->insertBack(id);
 }
+
+#endif

@@ -40,6 +40,7 @@ class BST{
         bool isEmpty();
         T* getMin();
         T* getMax();
+        int getSize();
         TreeNode<T> *getSuccessor(TreeNode<T> *d); //d represents the node we are going to delete
         TreeNode<T> *getPerson(int id);
         void printNodes();
@@ -50,10 +51,12 @@ class BST{
         TreeNode<T>* getRoot();
     private:
         TreeNode<T> *root;
+        int size;
 };
 template <class T>
 BST<T>::BST(){
     root = NULL;
+    size = 0;
 }
 template <class T>
 BST<T>::~BST(){
@@ -111,7 +114,7 @@ T* BST<T>::getMax(){
 template <class T>
 void BST<T>::insert(T value){
     TreeNode<T> *node = new TreeNode<T>(value);
-    
+    size++;
     if(isEmpty())
         root = node;
     else{
@@ -162,7 +165,7 @@ template <class T>
 bool BST<T>::deleteNode(T k){
     //check if leaf
     //check which child exists(left or right or both)
-
+    size--;
     if(isEmpty()){
         return false;
     }
@@ -262,7 +265,7 @@ TreeNode<T>* BST<T>::getPerson(int id){
   }
   TreeNode<T> *current = root;
   while(isTrue == false){
-    if(current->key == id){
+    if(current->key->getID() == id){
       isTrue = true;
       return current;
     }
@@ -271,7 +274,10 @@ TreeNode<T>* BST<T>::getPerson(int id){
     }
   }
 }
-
+template<class T>
+int BST<T>::getSize(){
+    return size;
+}
 template<class T>
 void BST<T>::printInfo(){
   if(isEmpty()){
@@ -292,7 +298,7 @@ void BST<T>::printPerson(int id){
   }
   TreeNode<T> *current = root;
   while(isTrue == false){
-    if(current->key == id){
+    if(current->key->getID() == id){
       cout<<current->key.toString()<<endl;
       isTrue = true;
     }

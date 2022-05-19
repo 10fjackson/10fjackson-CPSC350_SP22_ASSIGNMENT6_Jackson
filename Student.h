@@ -1,3 +1,5 @@
+#ifndef Student_H
+#define Student_H
 #include "Person.h"
 using namespace std;
 class Student : public Person
@@ -6,7 +8,9 @@ class Student : public Person
 	    Student();
         ~Student();
         Student(int id, string name, string level, string major, double gpa, int advisorID);
-        int getAdvisor();
+        int getAdvisorID();
+        void setAdvisorID(int a);
+        int getID();
     private:
         string m_major;
         double m_gpa;
@@ -43,3 +47,5 @@ void Student::setAdvisorID(int a){
 int Student::getID(){
     return m_id;
 }
+
+#endif
