@@ -12,7 +12,12 @@ class Faculty : public Person
         DoublyLinkedList<int>* getList();
         int getListSize();
         void addStudent(int id);
-
+        int getID();
+        string toString();
+        bool operator<(const Faculty &s); 
+        bool operator>(const Faculty &s);
+        bool operator==(const Faculty &s);
+        bool operator!=(const Faculty &s);
     private:
         string m_department;
         DoublyLinkedList<int> *m_studentIDList;
@@ -31,8 +36,12 @@ Faculty::Faculty(int id, string name, string level, string department, DoublyLin
     m_id = id;
     m_name = name;
     m_level = level;
-    m_department = "";
+    m_department = department;
     m_studentIDList = studentIDList;
+}
+
+int Faculty::getID(){
+    return m_id;
 }
 
 int Faculty::getListSize(){
@@ -55,6 +64,23 @@ void Faculty::removeStudent(int id){
 
 void Faculty::addStudent(int id){
     m_studentIDList->insertBack(id);
+}
+
+string Faculty::toString(){
+    return "ID: " + to_string(m_id) + ", Name: " + m_name + ", Level: " + m_level + ", Department: " + m_department; //+ ", Advisees: " + to_string(getAdvisees());;
+}
+
+bool Faculty::operator<(const Faculty &s){
+    return ((this->m_id < s.m_id) ? true : false);
+}
+bool Faculty::operator>(const Faculty &s){
+    return ((this->m_id > s.m_id) ? true : false);
+}
+bool Faculty::operator==(const Faculty &s){
+    return ((this->m_id == s.m_id) ? true : false);
+}
+bool Faculty::operator!=(const Faculty &s){
+    return ((this->m_id != s.m_id) ? true : false);
 }
 
 #endif
